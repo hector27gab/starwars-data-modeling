@@ -15,6 +15,7 @@ class Characters(Base):
     name = Column(String(100), nullable = False)
     description = Column(String(500), nullable = False)
     category = relationship("category")
+    favorites = relationship("favorites")
 
 class Planets(Base):
     __tablename__ = "planets"
@@ -24,6 +25,7 @@ class Planets(Base):
     name = Column(String(100), nullable = False)
     description = Column(String(500), nullable = False)
     category = relationship("category")
+    favorites = relationship("favorites")
 
 class Category(Base):
     __tablename__ = "category"
@@ -31,13 +33,14 @@ class Category(Base):
     description = Column(String(100), nullable = True)
     characters_id = Column(Integer, ForeignKey("characters.id"), nullable = False)
     planets_id = Column(Integer, ForeignKey("planets.id"), nullable = False)
-    favorites = relationship("favorites")
 
 class Favorites(Base):
     __tablename__ = "favorites"
     id = Column(Integer, primary_key = True)
     name = Column(String(100), nullable = False)
     favorite_posts = relationship("user")
+    characters_id = Column(Integer, ForeignKey("characters.id"), nullable = False)
+    planets_id = Column(Integer, ForeignKey("planets.id"), nullable = False)
 
 class User(Base):
     __tablename__ = "user"
